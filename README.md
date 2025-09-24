@@ -1,2 +1,524 @@
 # FMPiR3
 Fuel the Artist, Own the Empire
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FMPiR3 — Fuel the Artist. Own the Empire.</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0B061A;
+    --neon-purple:#9B5CFF;
+    --hot-pink:#FF3CA6;
+    --cy: #00F0FF;
+    --gold:#FFD166;
+    --card-bg: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.02);
+    --glass-2: rgba(255,255,255,0.03);
+    --max-width:1200px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: "Poppins", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(155,92,255,0.06), transparent 6%),
+                radial-gradient(900px 500px at 90% 90%, rgba(0,240,255,0.03), transparent 6%),
+                var(--bg);
+    color:#e9e7ee;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+
+  /* Animated neon grid background */
+  .neon-grid {
+    position:fixed;
+    inset:0;
+    z-index:0;
+    background-image:
+      linear-gradient(180deg, rgba(155,92,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px;
+    opacity:0.65;
+    filter: blur(6px) contrast(1.1);
+    transform: translateZ(0);
+    pointer-events:none;
+    mix-blend-mode: screen;
+    animation: gridmove 26s linear infinite;
+  }
+  @keyframes gridmove{
+    from{transform:translateY(0) rotate(0.01deg)}
+    to{transform:translateY(-120px) rotate(0.02deg)}
+  }
+
+  /* container */
+  .wrap{position:relative;max-width:var(--max-width);margin:0 auto;padding:40px 20px;z-index:2}
+
+  /* nav */
+  header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo {
+    font-family: Anton, sans-serif;
+    font-size:28px;
+    letter-spacing:2px;
+    color:var(--gold);
+    text-shadow: 0 0 10px rgba(255,209,102,0.12), 0 0 26px rgba(255,60,166,0.06);
+  }
+  .logo small{display:block;font-size:10px;color:rgba(233,231,238,0.6);font-family: Poppins;margin-top:-6px}
+
+  nav {display:flex;gap:18px;align-items:center}
+  nav a{color:rgba(233,231,238,0.8);text-decoration:none;font-weight:600}
+  .cta-btn{
+    background: linear-gradient(90deg,var(--hot-pink),var(--neon-purple));
+    padding:10px 18px;border-radius:10px;color:white;font-weight:700;border:none;cursor:pointer;
+    box-shadow:0 6px 18px rgba(155,92,255,0.15), inset 0 -2px 0 rgba(0,0,0,0.12);
+  }
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1fr 420px;gap:34px;align-items:center;padding:44px 0}
+  .hero-left{
+    padding:28px;
+  }
+  .kicker{
+    display:inline-block;background:linear-gradient(90deg,var(--cy),var(--hot-pink));
+    color:#071023;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;margin-bottom:18px;
+    box-shadow: 0 6px 30px rgba(155,92,255,0.12);
+  }
+  h1{
+    font-family: Anton, sans-serif;
+    margin:0 0 16px 0;
+    font-size:46px;
+    line-height:1.02;
+    text-transform:uppercase;
+    background: linear-gradient(90deg,var(--gold),#fff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow: 0 6px 26px rgba(155,92,255,0.08);
+  }
+  p.lead{font-size:18px;color:rgba(233,231,238,0.85);margin:0 0 22px;max-width:720px}
+
+  .hero-actions{display:flex;gap:12px;align-items:center}
+  .ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 16px;border-radius:10px;color:#fff;cursor:pointer}
+  .note{font-size:13px;color:rgba(233,231,238,0.6);margin-top:8px}
+
+  /* right card with sample "snippet" */
+  .snippet-card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+    border-radius:14px;padding:16px;border:1px solid rgba(155,92,255,0.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    min-height:260px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    position:relative;overflow:hidden;
+  }
+  .snippet-top{display:flex;gap:12px;align-items:center}
+  .artist-thumb{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--neon-purple),var(--hot-pink));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:white;box-shadow:0 10px 30px rgba(155,92,255,0.12)}
+  .song-meta{flex:1}
+  .song-meta h4{margin:0;font-size:16px;font-weight:800}
+  .song-meta p{margin:6px 0 0;color:rgba(233,231,238,0.6);font-size:13px}
+  .playbar{margin-top:18px;display:flex;align-items:center;gap:12px}
+  .big-play{width:64px;height:64px;border-radius:999px;background:linear-gradient(90deg,var(--hot-pink),var(--neon-purple));display:grid;place-items:center;color:white;font-size:24px;border:0;cursor:pointer;box-shadow:0 12px 30px rgba(255,60,166,0.12)}
+  .progress{flex:1;height:12px;background:linear-gradient(90deg, rgba(255,255,255,0.04), rgba(0,0,0,0.06));border-radius:999px;padding:3px}
+  .progress > i{display:block;height:100%;width:32%;background:linear-gradient(90deg,var(--cy),var(--neon-purple));border-radius:999px}
+
+  .invest-row{display:flex;gap:8px;align-items:center;margin-top:12px}
+  .invest-input{flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit}
+  .invest-btn{padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--gold),#ffd99b);border:none;font-weight:800;cursor:pointer}
+
+  /* sections */
+  section{padding:48px 0;border-top:1px dashed rgba(255,255,255,0.02)}
+  .section-head{display:flex;align-items:end;gap:12px;margin-bottom:18px}
+  .section-head h3{font-family: Anton;font-size:28px;margin:0}
+  .section-head p{margin:0;color:rgba(233,231,238,0.6);font-size:14px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:18px;
+  }
+  .card{
+    background:var(--card-bg);
+    border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03);
+    backdrop-filter: blur(6px);
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
+
+  .h-tag{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--hot-pink),var(--neon-purple));font-weight:800;color:white;font-size:12px}
+
+  /* artist pitch card */
+  .artist-card{display:flex;flex-direction:column;gap:12px}
+  .artist-card .art{height:140px;border-radius:10px;background:linear-gradient(135deg,var(--neon-purple),var(--cy));display:flex;align-items:center;justify-content:center;font-family:Anton;font-size:18px;color:white}
+  .artist-card h4{margin:0}
+  .artist-card p{margin:0;color:rgba(233,231,238,0.65)}
+
+  /* lottery/reserve */
+  .lottery{
+    display:flex;gap:20px;align-items:stretch;flex-wrap:wrap;
+  }
+  .lottery .panel{flex:1;min-width:260px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border:1px solid rgba(155,92,255,0.06)}
+  .big-number{font-family: Anton;font-size:34px;color:var(--gold)}
+
+  /* footer */
+  footer{padding:20px 0;color:rgba(233,231,238,0.6);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  footer a{color:inherit;text-decoration:none;font-weight:700}
+
+  /* invest modal */
+  .modal{
+    position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg, rgba(11,6,26,0.6), rgba(11,6,26,0.82));
+    z-index:50;padding:20px;visibility:hidden;opacity:0;transition:opacity .18s ease, visibility .18s ease;
+  }
+  .modal.open{visibility:visible;opacity:1}
+  .modal-card{width:100%;max-width:520px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));padding:20px;border-radius:12px;border:1px solid rgba(155,92,255,0.06)}
+  .row{display:flex;gap:12px;align-items:center}
+  .muted{color:rgba(233,231,238,0.55);font-size:13px}
+
+  /* small screens */
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:18px}
+    .snippet-card{order:2}
+    header{flex-direction:column;align-items:flex-start;gap:12px}
+  }
+</style>
+</head>
+<body>
+
+<div class="neon-grid" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">FMPiR3 <small>Fuel the Artist • Own the Empire</small></div>
+    </div>
+
+    <nav aria-label="Main navigation">
+      <a href="#how">How it Works</a>
+      <a href="#artists">Artists</a>
+      <a href="#lottery">Lottery</a>
+      <button class="cta-btn" id="getStarted">Back an Artist</button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero" role="main">
+    <div class="hero-left">
+      <span class="kicker">Fan-Driven • Tokenized • Cross-Chain</span>
+      <h1>Redefining music through fan empowerment</h1>
+      <p class="lead">Imagine a world where fans — not labels or algorithms — decide which artists rise. Artists get paid first, fans get rewarded, and music discovery becomes addictive, gamified, and fair. That’s FMPiR3.</p>
+
+      <div class="hero-actions">
+        <button class="cta-btn" id="scrollHow">How it works</button>
+        <button class="ghost" id="watchDemo">View Demo</button>
+      </div>
+      <div class="note">Early investments get higher rewards • 30-day funding windows • NFTs & tradable badges</div>
+    </div>
+
+    <aside class="snippet-card" aria-label="Featured artist pitch">
+      <div>
+        <div class="snippet-top">
+          <div class="artist-thumb">KA</div>
+          <div class="song-meta">
+            <h4>KA-L3RIS — “Divided Siren (Snippet)”</h4>
+            <p>30 sec fan snippet • 20% funded • 17 days remaining</p>
+          </div>
+        </div>
+
+        <div class="playbar" aria-hidden="false">
+          <button class="big-play" id="playBtn">▶</button>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="9">
+            <i></i>
+          </div>
+        </div>
+
+        <div class="invest-row" style="margin-top:8px">
+          <input class="invest-input" id="investAmount" placeholder="Enter FMP tokens (mock)" aria-label="Invest amount">
+          <button class="invest-btn" id="investBtn">Invest</button>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div class="muted">Live leaderboard • Top fans win extra NFT drops</div>
+        <div style="font-size:12px;color:rgba(233,231,238,0.76)">Ends in <strong id="countdown">17d 03:42:10</strong></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="section-head">
+      <h3>The Problem</h3>
+      <p>Why the old system fails artists & fans</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="h-tag">Streaming</span>
+        <h4>Artists get pennies</h4>
+        <p class="muted">Streaming economics favor platforms & labels — creators rarely earn sustainable income.</p>
+      </div>
+      <div class="card">
+        <span class="h-tag">Powerless Fans</span>
+        <h4>Fans are passive</h4>
+        <p class="muted">Likes and streams rarely change an artist's trajectory. Fans want influence & rewards.</p>
+      </div>
+      <div class="card">
+        <span class="h-tag">Hidden Talent</span>
+        <h4>New voices miss out</h4>
+        <p class="muted">Without upfront funding and visibility, fresh artists get buried.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section id="solution">
+    <div class="section-head">
+      <h3>The Solution — FMPiR3</h3>
+      <p>Fan-funded launches, tradable NFTs, and a quarterly reserve for non-funded projects.</p>
+    </div>
+
+    <div class="grid" style="margin-top:12px">
+      <div class="card">
+        <h4>30-day funding windows</h4>
+        <p class="muted">Artists have 30 days to reach their funding goal. If funded, they receive upfront cash & global distribution.</p>
+      </div>
+
+      <div class="card">
+        <h4>Fans earn & collect</h4>
+        <p class="muted">Back artists to earn tradable NFTs, badges, and bonus payouts for winners.</p>
+      </div>
+
+      <div class="card">
+        <h4>Reserve + Quarterly Payouts</h4>
+        <p class="muted">Funds from projects that don’t hit targets flow into a reserve that pays out quarterly — like a music lottery.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-head">
+      <h3>How It Works</h3>
+      <p>Simple. Fast. Gamified.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h4>1. Hear 30-second snippets</h4>
+        <p class="muted">Short previews make discovery quick and strategic — fans decide based on potential.</p>
+      </div>
+      <div class="card">
+        <h4>2. Back early, earn more</h4>
+        <p class="muted">Early investments yield higher reward multipliers when artists succeed.</p>
+      </div>
+      <div class="card">
+        <h4>3. Winners release globally</h4>
+        <p class="muted">Funded artists get promotion, distribution, and living wages.</p>
+      </div>
+      <div class="card">
+        <h4>4. Tradeable fan assets</h4>
+        <p class="muted">NFTs & badges can be traded or sold — fandom becomes ownership.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTISTS / PITCHES -->
+  <section id="artists">
+    <div class="section-head">
+      <h3>Featured Artist Pitches</h3>
+      <p>Pick your favorites. Back the next breakout star.</p>
+    </div>
+
+    <div class="grid" aria-live="polite">
+      <!-- example artist -->
+      <div class="card artist-card">
+        <div class="art">KA-L3RIS</div>
+        <h4>Divided Siren (Snippet)</h4>
+        <p class="muted">Goal: 5000 FMP • Raised: 1,020 FMP • 17 days left</p>
+        <div style="display:flex;gap:8px">
+          <button class="cta-btn smallBack" data-artist="KA-L3RIS">Back</button>
+          <button class="ghost">View Snippet</button>
+        </div>
+      </div>
+
+      <div class="card artist-card">
+        <div class="art">LUCY V</div>
+        <h4>Neon Tides (Snippet)</h4>
+        <p class="muted">Goal: 3,000 FMP • Raised: 2,187 FMP • 4 days left</p>
+        <div style="display:flex;gap:8px">
+          <button class="cta-btn smallBack" data-artist="LUCY V">Back</button>
+          <button class="ghost">View Snippet</button>
+        </div>
+      </div>
+
+      <div class="card artist-card">
+        <div class="art">SYNTHIA</div>
+        <h4>Gold City (Snippet)</h4>
+        <p class="muted">Goal: 7,500 FMP • Raised: 4,270 FMP • 26 days left</p>
+        <div style="display:flex;gap:8px">
+          <button class="cta-btn smallBack" data-artist="SYNTHIA">Back</button>
+          <button class="ghost">View Snippet</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOTTERY / RESERVE -->
+  <section id="lottery">
+    <div class="section-head">
+      <h3>Lottery & Reserve</h3>
+      <p>Unfunded projects feed a reserve — paid out quarterly to fans.</p>
+    </div>
+
+    <div class="lottery">
+      <div class="panel">
+        <div class="big-number">Reserve Pool</div>
+        <p style="font-size:22px;margin:6px 0 12px">12,430 FMP</p>
+        <p class="muted">Quarterly payouts distributed to investors from unfunded campaigns. It creates long-term rewards for engaged fans.</p>
+      </div>
+
+      <div class="panel">
+        <div class="big-number">Next Payout</div>
+        <p style="font-size:22px;margin:6px 0 12px" id="nextPayout">Oct 1, 2025</p>
+        <p class="muted">Winners are selected from reserve contributors and eligible backers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div style="display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+      <div>
+        <h3 style="font-size:24px;margin:0">Join the movement</h3>
+        <p class="muted" style="max-width:620px">Put fans in control. Pay artists first. Back the next big sound and earn real rewards while shaping careers.</p>
+      </div>
+      <div>
+        <button class="cta-btn" id="backNow">Back an artist — Start now</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© <strong>FMPiR3</strong> 2025 • Fuel the Artist. Own the Empire.</div>
+    <div><a href="#how">How it works</a> • <a href="#artists">Artists</a> • <a href="#lottery">Reserve</a></div>
+  </footer>
+</div>
+
+<!-- Invest modal -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-card" role="document">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h3 id="modalArtist">Backing Artist</h3>
+        <div class="muted" id="modalSub">KA-L3RIS • 30-day funding window</div>
+      </div>
+      <button class="ghost" id="closeModal">Close</button>
+    </div>
+
+    <div style="margin-top:14px">
+      <label class="muted">Amount (FMP tokens - mock)</label>
+      <input id="modalAmount" class="invest-input" placeholder="e.g. 50" type="number" min="1">
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="ghost" id="cancelModal">Cancel</button>
+      <button class="cta-btn" id="confirmInvest">Confirm invest</button>
+    </div>
+
+    <div style="margin-top:12px" class="muted" id="investResult"></div>
+  </div>
+</div>
+
+<script>
+  // Small interactive behavior (mock)
+  const modal = document.getElementById('modal');
+  const modalArtist = document.getElementById('modalArtist');
+  const modalSub = document.getElementById('modalSub');
+  const confirmInvest = document.getElementById('confirmInvest');
+  const investResult = document.getElementById('investResult');
+
+  function openModal(artistName){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    modalArtist.textContent = 'Backing: ' + artistName;
+    modalSub.textContent = artistName + ' • 30-day funding window';
+    document.getElementById('modalAmount').value = '';
+    investResult.textContent = '';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  // quick wiring for hero invest
+  document.getElementById('investBtn').addEventListener('click', ()=> openModal('KA-L3RIS'));
+  document.querySelectorAll('.smallBack').forEach(b=> b.addEventListener('click', e=> openModal(e.currentTarget.dataset.artist)));
+  document.getElementById('getStarted').addEventListener('click', ()=> openModal('Featured Artist'));
+  document.getElementById('backNow').addEventListener('click', ()=> openModal('Featured Artist'));
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  document.getElementById('cancelModal').addEventListener('click', closeModal);
+
+  confirmInvest.addEventListener('click', ()=>{
+    const amt = Number(document.getElementById('modalAmount').value || 0);
+    if(!amt || amt <=0){ investResult.style.color='#ffb3c9'; investResult.textContent='Enter a valid amount to invest.'; return; }
+    // mock: success
+    investResult.style.color='#b9ffd6';
+    investResult.textContent = 'Success! You invested ' + amt + ' FMP. You earned 1 collectible badge (mock).';
+    // in real product: call wallet connect / token transfer here
+    setTimeout(()=> closeModal(), 1600);
+  });
+
+  // play button mock (no audio included)
+  const playBtn = document.getElementById('playBtn');
+  playBtn.addEventListener('click', ()=>{
+    const isPlay = playBtn.textContent.trim() === '▶';
+    playBtn.textContent = isPlay ? '⏸' : '▶';
+    // animate progress bar
+    const bar = document.querySelector('.progress > i');
+    if(isPlay){
+      bar.style.transition = 'width 24s linear';
+      bar.style.width = '100%';
+    } else {
+      bar.style.transition = 'none';
+      bar.style.width = bar.style.width; // freeze
+    }
+  });
+
+  // countdown mock (set days remaining)
+  function startCountdown(days){
+    const target = Date.now() + days*24*60*60*1000;
+    const el = document.getElementById('countdown');
+    const int = setInterval(()=>{
+      const diff = target - Date.now();
+      if(diff <= 0){ el.textContent = '0d 00:00:00'; clearInterval(int); return; }
+      const d = Math.floor(diff / (24*60*60*1000));
+      const h = Math.floor((diff % (24*60*60*1000)) / (3600*1000));
+      const m = Math.floor((diff % (3600*1000)) / (60*1000));
+      const s = Math.floor((diff % (60*1000)) / 1000);
+      el.textContent = `${d}d ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }, 1000);
+  }
+  startCountdown(17); // example
+
+  // scroll to how
+  document.getElementById('scrollHow').addEventListener('click', ()=> document.getElementById('how').scrollIntoView({behavior:'smooth'}));
+  document.getElementById('watchDemo').addEventListener('click', ()=> alert('Demo mode — in a real build this would open a short product demo video.'));
+
+  // Next payout date (simple calculation: next 1st of next month)
+  (function setNextPayout(){
+    const n = new Date();
+    const month = n.getMonth() + 1; // next month
+    const year = n.getFullYear();
+    const next = new Date(year, month, 1);
+    const opts = {year:'numeric', month:'short', day:'numeric'};
+    document.getElementById('nextPayout').textContent = next.toLocaleDateString(undefined, opts);
+  })();
+
+  // close modal on outside click
+  modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+</script>
+</body>
+</html>
